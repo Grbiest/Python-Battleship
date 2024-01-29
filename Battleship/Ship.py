@@ -1,3 +1,5 @@
+# A ship to be placed on the grid. Stores status and health information.
+
 class Ship:
     shipDict = {"Carrier": 5, "Battleship": 4, "Cruiser" : 3, "Submarine": 3, "Destroyer": 2}
     shipAbbrDict = {'Ca':"Carrier", "Ba":"Battleship", "Cr":"Cruiser", "Su":"Submarine", "De":"Destroyer"}

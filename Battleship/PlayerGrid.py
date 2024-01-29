@@ -1,3 +1,6 @@
+# A combination of 3 grid layers: print, ship, and hit, and functions to compare and display each grid. The print layer is solely for returning a string.
+# The hiddengrid variable determines how it displays ships.
+
 from GridLayer import GridLayer
 from ShipGrid import ShipGrid
 from HitGrid import HitGrid
@@ -17,13 +20,15 @@ class PlayerGrid():
             self.hitGrid = HitGrid(hiddenGrid=True)
             self.printGrid = GridLayer(hiddenGrid=True)
 
+#   Returning a string of grid differences.
     def contrastGrids(self):
         differenceList = []
         for space in self.shipGrid.gridDict:
             if self.shipGrid.gridDict[space] != self.shipGrid.gridDict[space]:
                 differenceList.append(space)
         return differenceList
-    
+
+#   Checking for space properties in both grids. 
     def checkIfSpaceEmptyInBothGrids(self, space):
         isEmpty = True
         if self.shipGrid.gridDict[space] != "empty" or self.hitGrid.gridDict[space] != "empty":
@@ -36,6 +41,7 @@ class PlayerGrid():
             isBlank = False
         return isBlank
 
+#   Recieving and processing an attack.
     def attack(self, space, hiddenGrid):
         if space not in self.shipGrid.gridListSingle:
             return "invalid move"
@@ -47,13 +53,15 @@ class PlayerGrid():
             return self.hitShips(space, hiddenGrid)
         else:
             return "invalid move"
-    
+
+#   Transferring a hit from the hitgrid to the shipgrid.
     def transferHit(self, space, hiddenGrid):
         if hiddenGrid:
             self.shipGrid.gridDict[space] = "hit"
         else:
             self.shipGrid.gridDict[space] = "shipHit"
-    
+
+#   Damaging the ships and returning whether or not the ship has sunk.
     def hitShips(self, space, hiddenGrid):
         hiddenGrid = self.hiddenGrid
         for ship in self.shipGrid.shipList:
@@ -65,11 +73,13 @@ class PlayerGrid():
                         print("Ship sunk!")
                         removeShip = self.shipGrid.removeShip(ship)
                         return removeShip
+
 #   Clearing all boards
     def clearAllBoards(self):
         self.shipGrid.clearBoard()
         self.hitGrid.clearBoard()
         self.printGrid.clearBoard()
+
 
     def __str__(self) -> str:
 

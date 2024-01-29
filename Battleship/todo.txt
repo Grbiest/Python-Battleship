@@ -1,0 +1,5 @@
+Create matrix
+Create ships
+Create turn
+Create ship detector
+Create AI

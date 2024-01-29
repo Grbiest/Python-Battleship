@@ -1,0 +1,27 @@
+place ships()
+    player 1
+        prompt to place ship
+        prompt direction
+            if can place ship
+                place ship
+                continue
+                if no more ships
+                    break
+            else
+                error message
+                continue
+    player 2
+
+
+
+
+
+Game X
+    Placement turn
+        player 1 placeships()
+        player 2 placeships()
+    Game phase
+        Attack Round
+            player 1 attacks
+            player 2 attacks
+            repeat until 1 player dies            

@@ -1,3 +1,5 @@
+# The base layer for every grid. GridLayers are meant to be stacked and compared.
+
 import numpy as np
 import random
 

@@ -1,3 +1,5 @@
+# Both the hidden and visible game boards, formatting them in an easily readable string.
+
 from PlayerGrid import PlayerGrid
 
 class GameGrid():
@@ -6,7 +8,8 @@ class GameGrid():
     def __init__(self, isHuman=True) -> None:
         self.yourGrid = PlayerGrid(hiddenGrid=True)
         self.myGrid = PlayerGrid(hiddenGrid=False)
-    
+
+#   Wiping both boards clean.    
     def clearBothBoards(self):
         self.yourGrid.clearAllBoards()
         self.myGrid.clearAllBoards()

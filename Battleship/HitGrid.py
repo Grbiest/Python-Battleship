@@ -1,3 +1,5 @@
+# A grid that stores the opponent's hits and misses.
+
 from GridLayer import GridLayer
 
 class HitGrid(GridLayer):

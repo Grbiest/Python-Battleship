@@ -1,3 +1,5 @@
+# A grid layer that stores all ships that a player has. It also handles all ship-related functions.
+
 from GridLayer import GridLayer
 from Ship import Ship
 
@@ -27,6 +29,7 @@ class ShipGrid(GridLayer):
             if ship.shipType == shipType:
                 return ship
 
+#   Checking to see if a ship can be placed on a space.
     def checkForShipPlacement(self, shipType, space):
         shipLength = self.carrier.shipDict[shipType]
         shipCross = self.getSpacesCross(space, shipLength)
@@ -39,6 +42,7 @@ class ShipGrid(GridLayer):
             return False
         pass
 
+#   Placing a ship on a spacelist.
     def placeShip(self, spacesList, shipType, isHuman=True):
         self.shipLocations[shipType] = spacesList
         shipInstance = self.getShipFromType(shipType)
@@ -51,6 +55,7 @@ class ShipGrid(GridLayer):
         
         pass
 
+#   Removing a ship from the grid.
     def removeShip(self, ship=Ship):
         ship.isSunk = True
         self.shipListStr.remove(ship.shipType)
@@ -62,13 +67,14 @@ class ShipGrid(GridLayer):
     def damageShip(self, ship=Ship):
         pass
         
-
+#   Detecting if a space contains a ship.
     def detectShipSpace(self, space):
         if self.gridDict[space] == "ship" or self.gridDict[space] == "shipHidden":
             return True
         else:
             return False
-    
+        
+#   Checking to see if the ships are all unsunk.
     def armadaHealthCheck(self):
         if len(self.currentShips) == 0:
             self.shipsAreAlive = False

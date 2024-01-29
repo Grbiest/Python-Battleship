@@ -1,3 +1,5 @@
+# Class that handles gameplay, cpu controls, and human controls.
+
 from GameGrid import GameGrid
 from Ship import Ship
 from ScoreBoard import ScoreBoard
@@ -14,23 +16,7 @@ class Game:
     def __init__(self) -> None:
         pass
 
-
-    def willYouPlayAgain(self):
-        while True:
-            playAgainPrompt = input("Would you like to play again? Y/N")
-            if playAgainPrompt == "Y":
-                return "Y"
-            elif playAgainPrompt != "N":
-                print("Sorry, I can't understand that, can you say it again please?")
-                continue
-            else:
-                return "N"
-
-    def gameReset(self):
-        self.humanPlayerGrid.clearBothBoards()
-        self.humanShipInventory = self.humanPlayerGrid.myGrid.shipGrid.shipInventory.copy()
-        self.cpuShipInventory = self.humanPlayerGrid.yourGrid.shipGrid.shipInventory.copy()
-
+#   The main method for playing the game.
     def playGame(self):
         print("Welcome to Battleship!\nFirst, place your ships. Then, guess where the opponent's ships are. First player to sink all of their opponent's ships wins!")
         self.gameReset()
@@ -40,6 +26,7 @@ class Game:
         result = self.attackRound()
         return result
 
+#   The round where both players place their ships.
     def shipPlacementRound(self, randomEnabled=False):
         if randomEnabled:    
             while True:
@@ -56,6 +43,7 @@ class Game:
                     print("Not a valid answer, try again.")
                     continue
 
+#   A single player placing all their ships
     def placeAllShipsTurn(self, isHuman, randomHuman=False):
         if isHuman:
             shipInventory = self.humanShipInventory
@@ -74,6 +62,7 @@ class Game:
                 if len(shipInventory) == 0:
                     print("CPU HAS FINISHED CHOOSING SHIPS.")
 
+#   A player placing a single ship
     def placeShipTurn(self, isHuman, randomHuman=False):
         if isHuman:
             if randomHuman:
@@ -102,9 +91,7 @@ class Game:
             self.humanPlayerGrid.yourGrid.shipGrid.placeShip(shipSpaces, selectedShip, isHuman=False)
             self.cpuShipInventory.pop(selectedShip)
                         
-
-
-
+#   Selecting a ship
     def selectShip(self, isHuman):
         selectedShip = ""
         while True:
@@ -125,6 +112,7 @@ class Game:
                 pass
         return selectedShip
 
+#   Selecting where to begin the ship placement
     def selectValidShipStartingPosition(self, isHuman, _selectedShip):
         while True:
             if isHuman:
@@ -142,6 +130,7 @@ class Game:
                 pass
         return shipSpace
 
+#   Selecting which direction to place the ship
     def selectValidShipDirection(self, isHuman, AbcNum, selectedShip):
         print(self.shipyard.shipDict)
         shipLength = self.shipyard.shipDict[selectedShip]
@@ -159,6 +148,7 @@ class Game:
                 pass
         return chosenDirection
     
+#   Getting random spaces to place the ship
     def getRandomShipSpaces(self, shipType, isHuman):
         shipLength = self.shipyard.shipDict[shipType]
         shipSpaces = []
@@ -179,7 +169,8 @@ class Game:
                     continue
                 else:
                     return shipSpaces
-    
+
+#   The main gameplay round, where both players attack until one loses all their ships.
     def attackRound(self):
         while True:
             humanAttack = self.attackTurn(isHuman=True)
@@ -194,8 +185,8 @@ class Game:
                 print("Congratulations! You've won!")
                 return("Player Victory")
             
-
-    def attackTurn(self, isHuman, wrangleOverride=True):
+#   A single player attacking in a turn.
+    def attackTurn(self, isHuman, wrangleOverride=False):
         if isHuman:
             while True:
                 chosenAttack = input("Select a space to fire upon!")
