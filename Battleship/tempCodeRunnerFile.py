@@ -1,0 +1,1 @@
+game.placeAllShipsRound(isHuman=True)
